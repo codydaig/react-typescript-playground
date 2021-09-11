@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import logo from './logo.svg';
 // import './App.css';
+
+// import { InputValueContext } from "./context/InputValueContext";
 
 interface AppProps {
   headerText: string;
@@ -21,6 +23,7 @@ interface User {
 }
 
 function App({headerText}:AppProps) {
+  // let { state, dispatch } = useContext(InputValueContext);
   let [user, setUser] = useState<User | null>(null);
   let [formData, setFormData] = useState({ username: '', email: ''})
 

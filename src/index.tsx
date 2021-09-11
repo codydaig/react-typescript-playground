@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// import { InputValueProvider } from "./context/InputValueContext";
+
 ReactDOM.render(
   <React.StrictMode>
-    <App headerText="Some Header" />
+    {/* <InputValueProvider> */}
+      <App headerText="Some Header" />
+    {/* </InputValueProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
