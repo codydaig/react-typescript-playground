@@ -1,24 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+// import logo from './logo.svg';
+// import './App.css';
 
-function App() {
+interface AppProps {
+  headerText: string;
+  optionalText?: string; // this is optional because of the ?
+}
+
+interface Address {
+  address: string,
+  city: string,
+  state: string,
+  zip: string
+}
+
+interface User {
+  name: string,
+  email: string,
+  address: Address
+}
+
+function App({headerText}:AppProps) {
+  let [user, setUser] = useState<User | null>(null);
+  let [formData, setFormData] = useState({ username: '', email: ''})
+
+  useEffect(() => {
+    fetchUser();
+  }, [])
+
+  let fetchUser = () => {
+    setUser({
+      name: 'Cody Daig',
+      email: 'cody@daig.me',
+      address: {
+        address: '514 Americas Way #16433',
+        city:"Box Elder",
+        state: 'SD',
+        zip: '57719'
+      }
+    });
+  };
+
+  let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  let onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData({
+      username:'',
+      email: ''
+    });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>{headerText}</h1>
+        {user ? <p>{user.name}</p> : ''}
       </header>
+      <form onSubmit={onSubmit}>
+        <input type="text" name="username" onChange={onChange} value={formData.username} /> <br />
+        <input type="text" name="email" onChange={onChange} value={formData.email} /><br />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
